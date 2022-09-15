@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:free_api_weather_app/core/locator.dart';
+import 'package:free_api_weather_app/core/models/weather_dto.dart';
 import 'package:free_api_weather_app/feature/presentation/weather_screen/weather_cubit.dart';
 import 'package:free_api_weather_app/feature/presentation/weather_screen/weather_state.dart';
 
@@ -57,7 +58,7 @@ class WeatherScreen extends StatelessWidget {
                     const CircularProgressIndicator()
                   else
                     state.remoteResponse != null
-                        ? WeatherInfoWidget()
+                        ? WeatherInfoWidget(weather: state.remoteResponse!,)
                         : const Text('ОШИБКА'),
                 ],
               ),
@@ -70,7 +71,8 @@ class WeatherScreen extends StatelessWidget {
 }
 
 class WeatherInfoWidget extends StatelessWidget {
-  const WeatherInfoWidget({Key? key}) : super(key: key);
+  final WeatherDto weather;
+  const WeatherInfoWidget({Key? key, required this.weather}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
