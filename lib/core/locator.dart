@@ -1,4 +1,5 @@
 import 'package:free_api_weather_app/core/services/http_client.dart';
+import 'package:free_api_weather_app/core/services/shared_preferences_service.dart';
 import 'package:get_it/get_it.dart';
 
 final GetIt locator = GetIt.instance;
@@ -15,6 +16,7 @@ Future setupLocator() async {
 
 void _setupServices() {
   locator.registerSingleton(HttpClientService());
+  locator.registerSingleton(SharedPreferencesService());
 }
 
 void _setupRepositories() {}
