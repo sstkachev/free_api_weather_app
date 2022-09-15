@@ -25,6 +25,8 @@ class WeatherScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: TextField(
+                      controller:
+                          locator.get<WeatherCubit>().cityTextController,
                       decoration: const InputDecoration(
                           border: OutlineInputBorder(), hintText: 'Город'),
                     ),
@@ -33,7 +35,7 @@ class WeatherScreen extends StatelessWidget {
                     height: 32,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => locator.get<WeatherCubit>().onTapLocal(),
                     child: const Text('Последний запрос'),
                   ),
                   const SizedBox(
@@ -47,7 +49,7 @@ class WeatherScreen extends StatelessWidget {
                     height: 32,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => locator.get<WeatherCubit>().onTapRemote(),
                     child: const Text('Узнать погоду'),
                   ),
                   const SizedBox(height: 32),

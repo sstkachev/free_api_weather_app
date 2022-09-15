@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+String localWeatherKey = 'localWeatherKey';
+
 class SharedPreferencesService {
   final StreamController<String> _keys$ = StreamController.broadcast();
 
