@@ -32,7 +32,7 @@ class WeatherScreen extends StatelessWidget {
                           border: OutlineInputBorder(), hintText: 'Город'),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 32,
                   ),
                   ElevatedButton(
@@ -44,7 +44,9 @@ class WeatherScreen extends StatelessWidget {
                   ),
                   if (state.isLocalLoading) const CircularProgressIndicator(),
                   state.localResponse != null
-                      ? LocalWeatherInfoWidget()
+                      ? LocalWeatherInfoWidget(
+                          weather: state.localResponse!,
+                        )
                       : const Text('...'),
                   const SizedBox(
                     height: 32,
@@ -58,7 +60,9 @@ class WeatherScreen extends StatelessWidget {
                     const CircularProgressIndicator()
                   else
                     state.remoteResponse != null
-                        ? WeatherInfoWidget(weather: state.remoteResponse!,)
+                        ? WeatherInfoWidget(
+                            weather: state.remoteResponse!,
+                          )
                         : const Text('ОШИБКА'),
                 ],
               ),
@@ -72,19 +76,57 @@ class WeatherScreen extends StatelessWidget {
 
 class WeatherInfoWidget extends StatelessWidget {
   final WeatherDto weather;
+
   const WeatherInfoWidget({Key? key, required this.weather}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      children: [
+        Text('Город: ${weather?.name}'),
+        const SizedBox(
+          height: 8,
+        ),
+        Text('Температура: ${weather?.main?.temp}°C'),
+        const SizedBox(
+          height: 8,
+        ),
+        Text(
+          ' ${weather?.weather?[0].description}'.toUpperCase(),
+        ),
+        Image(
+          image: NetworkImage(
+              'http://openweathermap.org/img/wn/${weather?.weather?[0].icon}@2x.png'),
+        )
+      ],
+    );
   }
 }
 
 class LocalWeatherInfoWidget extends StatelessWidget {
-  const LocalWeatherInfoWidget({Key? key}) : super(key: key);
+  final WeatherDto weather;
+
+  const LocalWeatherInfoWidget({
+    Key? key,
+    required this.weather,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      children: [
+        Text('Город: ${weather?.name}'),
+        const SizedBox(
+          height: 8,
+        ),
+        Text('${weather?.main?.temp}°C'),
+        const SizedBox(
+          height: 8,
+        ),
+        Text(
+          ' ${weather?.weather?[0].description}'.toUpperCase(),
+        ),
+      ],
+    );
   }
 }

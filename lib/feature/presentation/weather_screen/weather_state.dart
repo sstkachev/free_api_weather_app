@@ -37,5 +37,11 @@ class WeatherState extends Equatable {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [
+        city,
+        isRemoteLoading,
+        isLocalLoading,
+        remoteResponse,
+        localResponse,
+      ];
 }
